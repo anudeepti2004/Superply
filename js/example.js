@@ -23,17 +23,7 @@ var modal2 = document.getElementById('myModal2');
 var blueName = "";
 var redName = "";
  
-var myDiv = document.getElementById("winner");
- 
- show = function(){
-        myDiv.style.display = "block";
-        setTimeout(hide, 5000); // 5 seconds
-      },
 
-      hide = function(){
-        myDiv.style.display = "none";
-      };
-	  
 var lastClicked;
 var grid = getNewGrid(); 
 
@@ -135,13 +125,16 @@ function clickableGrid( rows, cols, callback ){
         var tr = grid.appendChild(document.createElement('tr'));
         for (var c=0;c<=cols;++c){
 		var cell = tr.appendChild(document.createElement('td'));
+		cell.className='columnContainer';
 			if(c==0 ){
 			if(r!=0)
 				cell.innerHTML = r;
+				
 			}
 			else if(r==0){
 				if(c!= 0)
 				cell.innerHTML = c;
+				
 			}
             cell.addEventListener('click',(function(el,r,c,i){
                 return function(){
@@ -400,6 +393,38 @@ function confirmGameDetails() {
 }
 
 function clickClose() {
+	clickRestartGame();
     modal2.style.display = "none";
 }
+
+function modalClose() {
+    if (location.hash == '#myModal1') {
+        location.hash = '';
+    }
+	modal1.style.display = "none";
+}
+
+// Handle ESC key (key code 27)
+document.addEventListener('keyup', function(e) {
+    if (e.keyCode == 27) {
+        modalClose();
+    }
+});
+
+// Handle Enter key (key code 13)
+document.addEventListener('keyup', function(e) {
+    if (e.keyCode == 13) {
+        confirmGameDetails();
+    }
+});
+
+// Handle click on the modal container
+modal1.addEventListener('click', modalClose, false);
+
+// Prevent event bubbling if click occurred within modal content body
+modal1.children[0].addEventListener('click', function(e) {
+    e.stopPropagation();
+}, false);
+
+
 
