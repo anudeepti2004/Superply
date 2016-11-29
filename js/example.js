@@ -16,8 +16,14 @@ var statusHint = false;
 var currentHint = "";
 var currentHintType = 0;
 var value1=0, value2=0;
+
+var modal1 = document.getElementById('myModal1');
+var modal2 = document.getElementById('myModal2');
+
+var blueName = "";
+var redName = "";
  
-var myDiv = document.getElementById("myDiv");
+var myDiv = document.getElementById("winner");
  
  show = function(){
         myDiv.style.display = "block";
@@ -29,7 +35,10 @@ var myDiv = document.getElementById("myDiv");
       };
 	  
 var lastClicked;
-var grid = clickableGrid(table,table,function(el,row,col,i){
+var grid = getNewGrid(); 
+
+function getNewGrid() {
+    var newgrid = clickableGrid(table,table,function(el,row,col,i){
     console.log("You clicked on element:",el);
     console.log("You clicked on row:",row);
     console.log("You clicked on col:",col);
@@ -45,7 +54,9 @@ var grid = clickableGrid(table,table,function(el,row,col,i){
 		  if(resultIsgameOver){
 			winnerIsBlue=true;
 			console.log("Game Over Blue Wins!");
-			hint.innerHTML= "Game Over Blue Wins!";	
+			//hint.innerHTML= "Game Over Blue Wins!";
+			modal2.style.display = "block";
+			document.getElementById('playerWinner').innerHTML = blueName + " Wins!!"
 		  }
 		  else {
 		    currentHint = generateHint();
@@ -56,6 +67,13 @@ var grid = clickableGrid(table,table,function(el,row,col,i){
             console.log("value2:",value2);
           }  
 		}  
+		if(statusHint) {
+		   document.getElementById("imageBlue").src="images/b1.png";
+		}
+		else {
+		   document.getElementById("imageBlue").src="images/b2.png";
+		}
+		setTimeout(function(){changeBlue()},1000);
 		hint.style.color = "#FF0000";
 		turnBlue=false;
 	}else{
@@ -66,7 +84,9 @@ var grid = clickableGrid(table,table,function(el,row,col,i){
 		  if(resultIsgameOver){
 			winnerIsBlue=false;
 			console.log("Game Over Red Wins!");
-			hint.innerHTML= "Game Over Red Wins!";		
+			//hint.innerHTML= "Game Over Red Wins!";
+			modal2.style.display = "block";	
+			document.getElementById('playerWinner').innerHTML = redName + " Wins!!"
 		  }
 		  else {
 		    currentHint = generateHint();
@@ -76,7 +96,14 @@ var grid = clickableGrid(table,table,function(el,row,col,i){
             console.log("value1:",value1); 
             console.log("value2:",value2);
           }  
-		}  
+		} 
+		if(statusHint) {
+		   document.getElementById("imageRed").src="images/r1.png";
+		}
+		else {
+		   document.getElementById("imageRed").src="images/r2.png";
+		}
+		setTimeout(function(){changeRed()},1000); 
 		hint.style.color = "#0000FF";
 		turnBlue=true;
 	}
@@ -88,9 +115,13 @@ var grid = clickableGrid(table,table,function(el,row,col,i){
     show();
     
 });
+  return newgrid; 
+}
+//window.onload =
 var el = document.getElementById('blackboard');
 //el.innerHTML=grid;
 el.appendChild(grid);
+el.className='blueclicked';
 
 var hint=getHint();
 var elHint= document.getElementById('hint');
@@ -100,14 +131,16 @@ function clickableGrid( rows, cols, callback ){
     var i=0;
     var grid = document.createElement('table');
     grid.className = 'grid';
-    for (var r=1;r<=rows;++r){
+    for (var r=0;r<=rows;++r){
         var tr = grid.appendChild(document.createElement('tr'));
-        for (var c=1;c<=cols;++c){
+        for (var c=0;c<=cols;++c){
 		var cell = tr.appendChild(document.createElement('td'));
-			if(c==1){
+			if(c==0 ){
+			if(r!=0)
 				cell.innerHTML = r;
 			}
-			else if(r==1){
+			else if(r==0){
+				if(c!= 0)
 				cell.innerHTML = c;
 			}
             cell.addEventListener('click',(function(el,r,c,i){
@@ -118,6 +151,16 @@ function clickableGrid( rows, cols, callback ){
         }
     }
     return grid;
+}
+
+function changeRed(){
+   document.getElementById("imageRed").src="images/blank.png";
+   document.getElementById("imageBlue").src="images/b3.png";
+}
+
+function changeBlue(){
+   document.getElementById("imageRed").src="images/r3.png";
+   document.getElementById("imageBlue").src="images/blank.png";
 }
 
 function isGameOver(){
@@ -168,7 +211,7 @@ function DFSHorizontal (i,j) {
 function isThereAVerticalPath(){
     var ans = false;
     for(var i=0;i<table;i++) {
-       if(x[0][i] == 0) {
+       if(x[0][i] == 1) {
          ans = DFSVertical(0,i);
          if(ans){ 
             return ans;
@@ -305,3 +348,58 @@ function satisfiesHint(row, col) {
    }
    return result;
 }
+
+function clickStartGame() {
+    clickRestartGame();
+    modal1.style.display = "block";
+    //modal2.style.display = "block";
+}
+
+function clickRestartGame() {
+    turnBlue=true;       // Message
+    for (var i = 0; i < table; i++) {
+      for (var j = 0; j < table; j++){
+        x[i][j] = -1;
+      }
+    }
+    winnerIsBlue=false;
+    resultIsgameOver=false;
+    statusHint = false;
+    value1=0; value2=0;
+
+    while(grid.hasChildNodes() ){
+      grid.removeChild(grid.lastChild);
+    }
+    grid = getNewGrid();
+    el.removeChild(el.firstChild);
+    el.appendChild(grid);
+    el.className='blueclicked';
+    
+    currentHint = generateHint();
+	hint.innerHTML= currentHint;
+}
+
+function confirmGameDetails() {
+    blueName = document.getElementById("BP").value;
+    redName = document.getElementById("RP").value;
+    var blueBox = document.createElement('blueText');
+    var redBox = document.createElement('redText');
+    blueBox.className="blueBox";
+    redBox.className="redBox"; 
+    blueBox.innerHTML = blueName;
+    redBox.innerHTML = redName;
+    var BN = document.getElementById('blueName');
+    var RN = document.getElementById('redName');
+    if(BN.firstChild)
+      BN.removeChild(BN.firstChild);
+    if(RN.firstChild)  
+      RN.removeChild(RN.firstChild);
+    BN.appendChild(blueBox);
+    RN.appendChild(redBox);
+    modal1.style.display = "none";
+}
+
+function clickClose() {
+    modal2.style.display = "none";
+}
+
