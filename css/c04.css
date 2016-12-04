@@ -24,20 +24,24 @@ body {
 
 #redPlayer {
 	position: absolute; top:300px; right:3px;
+	height:300px;
+	width: 300 px;
 	margin:0px 30px 0px 0px;}
-#bluePlayer {
+#bluePlayer  {
 	position: absolute; top:300px; left:3px;
+	height:250px;
+	width: 300 px;
 	margin:0px 30px 0px 0px;}
 
 #imageRed {
     height: 100px; width: 110px; overflow: hidden;
     -o-object-fit: contain;
-    position: absolute; top:275px; right:160px;
+    position: absolute; top:200px; right:200px;
 	margin:0px 30px 0px 0px;
 }
 #imageBlue{
     height: 100px; width: 110px; overflow: hidden;
-    position: absolute; top:275px; left:160px;
+    position: absolute; top:200px; left:200px;
 	margin:0px 30px 0px 0px;
 }
 #redName{
@@ -75,7 +79,7 @@ body {
 }
 
 #blackboard {
-	background-color: #425a5a;
+	background-color: 	#708090;
 	border: 25px solid #523620;
 	border-radius: 20px;
 	padding: 10px 20px;
@@ -84,12 +88,47 @@ body {
 	width: 500px;
 	text-align: center;}
 	
+	#mainAreaDiv{
+		padding: 10px 20px;
+	margin: 0px auto;
+	width: 500px;
+	text-align: center;
+	}
 
+ #playImage{
+	border-radius: 25px;
+	 margin-left: 1%; margin-bottom: 0.5em;
+	display: inline-block;
+	width:6.5%;
+	float: left;
+}
 
+#resetImage{
+	border-radius: 25px;
+	float:right;
+	margin-right: 1%; margin-bottom: 0.5em;
+}
 
+#rulesImage{
+	border-radius: 25px;
+	margin: 0px auto;
+}
+
+.blueImage {
+    visibility:hidden;
+    position: relative;
+    text-align: center;
+    bottom:30px;
+	left:0px;
+}
+
+.blueImage:hover  .blueImgDescription {
+    visibility:visible;
+}
 
 .grid{
 width: 500px;
+border-radius: 20px;
 }
 
 .grid td {
@@ -98,7 +137,6 @@ width: 500px;
     border:2px solid #523620;
     text-align:center;
      font-size:15px;
-	border-radius:100%;
 	border-spacing: 5px;
 	
 }
@@ -177,6 +215,7 @@ width: 500px;
     padding: 0;
     border: 1px solid #888;
     width: 80%;
+	height: 50%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -185,6 +224,8 @@ width: 500px;
 }
 
 .modal-body {padding: 2px 0px 40px 0px;}
+
+
 
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0} 
@@ -209,7 +250,7 @@ width: 500px;
   color: #fff;
   display: inline-block;
   font-size: 18px;
-  padding: 8px 15px;
+  /*padding: 8px 15px;*/
   text-decoration: none;
   text-align: center;
   min-width: 60px;
@@ -225,6 +266,12 @@ width: 500px;
     min-width: 100px;
   }
 }
+.mybutton #playButton{
+padding: 8px 15px;
+}
+
+
+
 
 
 .rules{
@@ -256,14 +303,31 @@ font-size: 60%;
 .grid tr:first-child td:first-child
 {
     border:none;
+	background-color: #708090;
 }
 
 .grid  td:first-child
 {
-    border:none;
+	border-radius:100%;
+	color: #fff;
+	background-color:black;
+	border-color: darken(black, 5%) solid 1px;
+	border:none;
 }
 
 .grid tr:first-child td
 {
-    border:none;
+	border:none;
+    border-radius:100%;
+	background-color:black;
+	color: #fff;
+	border-color: darken(black, 5%) solid 1px;
+}
+
+.bluepathImage{
+background-image: url('../images/bluePath.png');
+}
+
+.redpathImage{
+background-image: url('../images/redPath.png');
 }

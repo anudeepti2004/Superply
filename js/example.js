@@ -281,10 +281,17 @@ function generateHint() {
               }
               value2 = 0;
               break;
-     case 1 : upper = Math.floor(Math.random() * num) + num + 1;
-              lower = Math.floor(Math.random() * num);
-              h = "Product is between " + lower + " and " +upper +", inclusive";
-              value1 = lower; value2 = upper;
+     case 1 : while(true){
+				upper = Math.floor(Math.random() * num) + num + 1;
+				lower = Math.floor(Math.random() * num);
+				h = "Product is between " + lower + " and " +upper +", inclusive";
+				value1 = lower; value2 = upper;
+				var count=getCountWhereHintIsSatisfied(hintType,value1,value2);
+				console.log(hintType,count);
+				if(count > 0 && count <= 10){
+						break;
+					}
+				}
               break;
      case 2 : sNum = num.toString();
               digitLoc = Math.floor(Math.random() * sNum.length); 
@@ -376,7 +383,11 @@ function confirmGameDetails() {
     blueName = document.getElementById("BP").value;
     redName = document.getElementById("RP").value;
     var blueBox = document.createElement('blueText');
+	var horizontalPathImage= document.createElement('bluePathImage');
+	var verticalPathImage= document.createElement('redPathImage');
     var redBox = document.createElement('redText');
+	horizontalPathImage.className="bluepathImage";
+	verticalPathImage.className="redpathImage";
     blueBox.className="blueBox";
     redBox.className="redBox"; 
     blueBox.innerHTML = blueName;
@@ -387,8 +398,10 @@ function confirmGameDetails() {
       BN.removeChild(BN.firstChild);
     if(RN.firstChild)  
       RN.removeChild(RN.firstChild);
-    BN.appendChild(blueBox);
+    //BN.appendChild(blueBox);
     RN.appendChild(redBox);
+	BN.appendChild(horizontalPathImage);
+    RN.appendChild(verticalPathImage);
     modal1.style.display = "none";
 }
 
@@ -426,5 +439,44 @@ modal1.children[0].addEventListener('click', function(e) {
     e.stopPropagation();
 }, false);
 
+function getCountWhereHintIsSatisfied(hintType,v1,v2){
+var index=0;
+	for (var i = 0; i < table; i++) {
+     for(var j = 0; j< table; j++) {
+        if(x[i][j] == -1) {
+			var num = (i+1)*(j+1);
+           switch(hintType)
+		   {
+			  case 1 : if(num >= v1 && num <= v2)
+							index++;
+					   break;    
+			  case 2 : var sNum = num.toString();
+					   for(var i=0; i<sNum.length; i++){
+						  if(parseInt(sNum.charAt(i)) == v1){
+							   index++;
+							   break;
+						  }     
+					   }    
+					   break;
+			  case 3 : if(num < v1)
+						   index++;
+					   break;
+			  case 4 : if(num > v1)
+						   index++;
+					   break;                              
+										 
+		   }          
+        }
+     }
+  }
+  return index;
+}
 
+function loadPage(href)
+            {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", href, false);
+                xmlhttp.send();
+                return xmlhttp.responseText;
+            }
 
