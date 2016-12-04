@@ -19,6 +19,7 @@ var value1=0, value2=0;
 
 var modal1 = document.getElementById('myModal1');
 var modal2 = document.getElementById('myModal2');
+var modal3 = document.getElementById('myModal3');
 
 var blueName = "";
 var redName = "";
@@ -27,7 +28,9 @@ var redName = "";
 var lastClicked;
 var grid = getNewGrid(); 
 
+
 function getNewGrid() {
+
     var newgrid = clickableGrid(table,table,function(el,row,col,i){
     console.log("You clicked on element:",el);
     console.log("You clicked on row:",row);
@@ -405,16 +408,15 @@ function confirmGameDetails() {
     modal1.style.display = "none";
 }
 
-function clickClose() {
-	clickRestartGame();
-    modal2.style.display = "none";
+function clickRulesClose() {
+	modal3.style.display = "none";
 }
 
 function modalClose() {
     if (location.hash == '#myModal1') {
         location.hash = '';
     }
-	modal1.style.display = "none";
+	modal1.style.display = "none";	
 }
 
 // Handle ESC key (key code 27)
@@ -438,6 +440,23 @@ modal1.addEventListener('click', modalClose, false);
 modal1.children[0].addEventListener('click', function(e) {
     e.stopPropagation();
 }, false);
+
+function clickClose() {
+	if (location.hash == '#myModal2') {
+		clickRestartGame();
+		modal2.style.display = "none";
+	}
+	modal3.style.display = "none";
+}
+
+// Handle click on the modal container
+modal3.addEventListener('click', clickRulesClose, false);
+
+// Prevent event bubbling if click occurred within modal content body
+modal3.children[0].addEventListener('click', function(e) {
+    e.stopPropagation();
+}, false);
+
 
 function getCountWhereHintIsSatisfied(hintType,v1,v2){
 var index=0;
@@ -472,11 +491,6 @@ var index=0;
   return index;
 }
 
-function loadPage(href)
-            {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.open("GET", href, false);
-                xmlhttp.send();
-                return xmlhttp.responseText;
-            }
-
+function displayRules(){
+modal3.style.display = "block";
+}
