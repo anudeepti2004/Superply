@@ -461,14 +461,19 @@ function clickRestartGame() {
       grid.removeChild(grid.lastChild);
     }
     grid = getNewGrid();
-    el.removeChild(el.firstChild);
+	setTurnBlue();
+	el.removeChild(el.firstChild);
     el.appendChild(grid);
     el.className='blueclicked';
     
     currentHint = generateHint();
 	hint.innerHTML= currentHint;
 }
-
+function setTurnBlue(){
+	hint.style.color = "#0000FF";
+	turnBlue=true;
+	changeRed();
+}
 function confirmGameDetails() {
     blueName = document.getElementById("BP").value;
     redName = document.getElementById("RP").value;
@@ -493,7 +498,7 @@ function confirmGameDetails() {
 	BN.appendChild(horizontalPathImage);
     RN.appendChild(verticalPathImage);
     modal1.style.display = "none";
-	hint.style.color = "#0000FF";
+	setTurnBlue();
 }
 
 function clickRulesClose() {
@@ -505,7 +510,7 @@ function modalClose() {
         location.hash = '';
     }
 	modal1.style.display = "none";	
-	hint.style.color = "#0000FF";
+	setTurnBlue();
 }
 
 // Handle ESC key (key code 27)
