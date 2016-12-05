@@ -63,7 +63,7 @@
 	 
    
     <div id="myModal1" class="modal">
-       <div class="modal-content">
+       <div class="modal-content" id="modal1Content">
          <div class="modal-body">
           <h2 id="welcomeMessage">WELCOME TO SUPERPLY</h2>
 		  <div style="float:left; width:70%;" class="rules">
@@ -110,14 +110,14 @@ If the player's selection is not valid the turn goes to the other player.</p>
 	   </div>
          <div class="modal-body">
            
-           <section id="winner" ><img src="images/winner.gif" /></section>
+           <img src="images/winner.gif" id="winner"/>
          </div>
       </div>
     </div>
 	<div id="myModal3" class="modal">
-       <div class="modal-content">
+       <div class="modal-content" id="modal3">
 	   <div class="modal-header">
-	   <span class="close" onclick="clickClose()">x</span><br />
+	   <span class="close" onclick="clickModal3Close()">x</span><br />
 			<h2 id="Rules" >Rules</h2>
 	   </div>
          <div class="modal-body">

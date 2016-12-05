@@ -442,12 +442,14 @@ modal1.children[0].addEventListener('click', function(e) {
 }, false);
 
 function clickClose() {
-	if (location.hash == '#myModal2') {
 		clickRestartGame();
 		modal2.style.display = "none";
-	}
-	modal3.style.display = "none";
 }
+
+function clickModal3Close() {
+		modal3.style.display = "none";
+}
+
 
 // Handle click on the modal container
 modal3.addEventListener('click', clickRulesClose, false);
