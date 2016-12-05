@@ -194,29 +194,29 @@ function DFSHorizontal (i,j) {
    var ans = false;
    // i, j+1 & i, j-1
    if(x[i][j+1] == 0 && visited[i][j+1] == 0) {
-     visited[i][j+1] == 1; 
+     visited[i][j+1] = 1; 
      ans = DFSHorizontal(i,j+1);
      if(ans) return ans;
    }
    if(j-1 >= 0 && x[i][j-1] == 0 && visited[i][j-1] == 0) {
-     visited[i][j-1] == 1; 
+     visited[i][j-1] = 1; 
      ans = DFSHorizontal(i,j-1);
      if(ans) return ans;
    }
    // i+1, j+1 & i+1 , j & i+1, j-1
    if(i+1 < table) {
      if(x[i+1][j+1] == 0 && visited[i+1][j+1] == 0) {
-       visited[i+1][j+1] == 1;
+       visited[i+1][j+1] = 1;
        ans = DFSHorizontal(i+1,j+1);
        if(ans) return ans;
      }
      if(x[i+1][j] == 0 && visited[i+1][j] == 0) {
-       visited[i+1][j] == 1;
+       visited[i+1][j] = 1;
        ans = DFSHorizontal(i+1,j);
        if(ans) return ans;
      }
      if(j-1 >= 0 && x[i+1][j-1] == 0 && visited[i+1][j-1] == 0) {
-       visited[i+1][j-1] == 1;
+       visited[i+1][j-1] = 1;
        ans = DFSHorizontal(i+1,j-1);
        if(ans) return ans;
      }  
@@ -224,17 +224,17 @@ function DFSHorizontal (i,j) {
    // i-1, j+1 & i-1, j & i-1, j-1    
    if(i-1 >= 0){
      if(x[i-1][j+1] == 0 && visited[i-1][j+1] == 0) {
-       visited[i-1][j+1] == 1;
+       visited[i-1][j+1] = 1;
        ans = DFSHorizontal(i-1,j+1);
        if(ans) return ans; 
      } 
      if(x[i-1][j] == 0 && visited[i-1][j] == 0) {
-       visited[i-1][j] == 1;
+       visited[i-1][j] = 1;
        ans = DFSHorizontal(i-1,j);
        if(ans) return ans; 
      }  
      if(j-1 >= 0 && x[i-1][j-1] == 0 && visited[i-1][j-1] == 0) {
-       visited[i-1][j-1] == 1;
+       visited[i-1][j-1] = 1;
        ans = DFSHorizontal(i-1,j-1); 
      }  
    }
