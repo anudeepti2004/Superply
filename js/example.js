@@ -493,6 +493,7 @@ function confirmGameDetails() {
 	BN.appendChild(horizontalPathImage);
     RN.appendChild(verticalPathImage);
     modal1.style.display = "none";
+	hint.style.color = "#0000FF";
 }
 
 function clickRulesClose() {
@@ -504,6 +505,7 @@ function modalClose() {
         location.hash = '';
     }
 	modal1.style.display = "none";	
+	hint.style.color = "#0000FF";
 }
 
 // Handle ESC key (key code 27)
