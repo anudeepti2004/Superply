@@ -56,6 +56,7 @@ function getNewGrid() {
 			//hint.innerHTML= "Game Over Blue Wins!";
 			modal2.style.display = "block";
 			document.getElementById('playerWinner').innerHTML = blueName + " Wins!!"
+			sendResults();
 		  }
 		  else {
 		    currentHint = generateHint();
@@ -87,6 +88,7 @@ function getNewGrid() {
 			//hint.innerHTML= "Game Over Red Wins!";
 			modal2.style.display = "block";	
 			document.getElementById('playerWinner').innerHTML = redName + " Wins!!"
+			sendResults();
 		  }
 		  else {
 		    currentHint = generateHint();
@@ -600,4 +602,26 @@ var index=0;
 function displayRules(){
    modal3.style.display = "block";
    rulesOpen = true;
+}
+
+function sendResults(){
+
+var url="";
+	if(winnerIsBlue){
+		url= "/dbman/saveScore.php?"+"gamename=superply&playername="+blueName+"&score=Win";
+	}else{
+		url="/dbman/saveScore.php?"+"gamename=superply&playername="+redName+"&score=Win";
+	}
+	httpGetAsync(url, function(){});
+}
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
 }
